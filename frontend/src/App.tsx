@@ -5,11 +5,7 @@ import { Header } from 'core/root/Header';
 import { Main } from 'core/root/Main';
 import { Footer } from 'core/root/Footer';
 
-interface Props {
-  wasm: typeof import('rust');
-}
-
-function App({ wasm }: Props): ReactElement {
+function App(): ReactElement {
   return (
     <>
       <Header />

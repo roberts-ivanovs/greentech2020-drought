@@ -29,7 +29,6 @@
   ],
   "include": [
     "src",
-    "src/rust"
   ],
   "typeRoots": [
     "../node_modules/@types",
