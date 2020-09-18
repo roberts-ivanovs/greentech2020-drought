@@ -4,10 +4,9 @@ import './Footer.scss';
 
 export function Footer(): React.ReactElement {
   return (
-    <div className="footer-box">
-      <footer>
-        <p>Made with *love* and *coffee*</p>
-      </footer>
-    </div>
+    <footer className="container">
+      <p className="float-right"><a href="#">Back to top</a></p>
+      <p>© 2017-2020 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    </footer>
   );
 }

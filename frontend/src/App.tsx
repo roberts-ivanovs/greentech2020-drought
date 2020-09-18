@@ -8,9 +8,13 @@ import { Footer } from 'core/root/Footer';
 function App(): ReactElement {
   return (
     <>
-      <Header />
-      <Main />
-      <Footer />
+      <header>
+        <Header />
+      </header>
+      <main role="main">
+        <Main />
+        <Footer />
+      </main>
     </>
   );
 }
