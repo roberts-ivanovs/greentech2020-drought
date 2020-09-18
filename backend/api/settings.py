@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # My apps
     "core",
-    "education",
+    "copernicus",
 ]
 
 MIDDLEWARE = [
