@@ -1,8 +1,9 @@
+import 'bootstrap/dist/css/bootstrap.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from 'App';
 import * as serviceWorker from 'serviceWorker';
-import { UserContextProvider } from 'global/UserContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const rust = import('rust');
@@ -12,9 +13,7 @@ rust
     ReactDOM.render(
       <Router>
         <React.StrictMode>
-          <UserContextProvider>
-            <App wasm={m} />
-          </UserContextProvider>
+          <App wasm={m} />
         </React.StrictMode>
       </Router>,
       document.getElementById('root'),
@@ -25,7 +24,7 @@ rust
     console.log(`Something went wrong when fetching wasm!\n${e}`);
   });
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
+// unregister() to register() below. Note this comes with some pitfalls.
+// If you want your app to work offline and load faster, you can change
 serviceWorker.unregister();
