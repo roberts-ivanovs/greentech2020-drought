@@ -1,4 +1,6 @@
+// import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,7 +15,7 @@ ReactDOM.render(
     </React.StrictMode>
   </Router>,
   document.getElementById('root'),
-)
+);
 
 // Learn more about service workers: https://bit.ly/CRA-PWA
 // unregister() to register() below. Note this comes with some pitfalls.
