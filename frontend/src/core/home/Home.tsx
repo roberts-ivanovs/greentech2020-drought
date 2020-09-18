@@ -14,33 +14,31 @@ export function Home({ }: Props): ReactElement {
           <li data-target="#myCarousel" data-slide-to="2" className="" />
         </ol>
         <div className="carousel-inner">
-          <div className="carousel-item active carousel-item-left">
-            <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg>
-            <div className="container">
-              <div className="carousel-caption text-left">
-                <h1>Example headline.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a className="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
-              </div>
+          <div className="carousel-item active">
+            <img src="satalite.png" alt="Satalite" width="100%" height="100%" />
+            <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="75%" fill="#777" /></svg>
+            <div className="carousel-caption">
+              <h1>Drought prediction</h1>
+              <p>Using Copernicus satellite data</p>
             </div>
           </div>
-          <div className="carousel-item carousel-item-next carousel-item-left">
-            <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg>
+          <div className="carousel-item carousel-item-next">
+            {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg> */}
+            <img src="forest.png" alt="Satalite" width="100%" height="100%" />
             <div className="container">
               <div className="carousel-caption">
-                <h1>Another example headline.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a className="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                <h1>Save money, avoid risk</h1>
+                <p>No need to spend where it is not profitable</p>
               </div>
             </div>
           </div>
           <div className="carousel-item">
-            <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg>
+            {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg> */}
+            <img src="crops.png" alt="Satalite" width="100%" height="100%" />
             <div className="container">
-              <div className="carousel-caption text-right">
-                <h1>One more for good measure.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a className="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+              <div className="carousel-caption">
+                <h1>Make people happy</h1>
+                <p>Save the crops, feed the planet indirectly by using our product</p>
               </div>
             </div>
           </div>
