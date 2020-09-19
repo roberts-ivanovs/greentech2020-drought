@@ -116,14 +116,47 @@ export function Home({ }: Props): ReactElement {
 
         <div className="row featurette">
           <div className="col-md-7">
-            <h2 className="featurette-heading">And lastly, this one. <span className="text-muted">Checkmate.</span></h2>
-            <p className="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <h2 className="featurette-heading">Drough in Latvia</h2>
+            <p className="lead">Drought is a new problem in Latvia.</p>
           </div>
           <div className="col-md-5">
-            <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 500x500"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee" /><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+            <div id="postCarousel" className="carousel slide mt-1" data-ride="carousel">
+              <ol className="carousel-indicators">
+                <li data-target="#postCarousel" data-slide-to="0" className="" />
+                <li data-target="#postCarousel" data-slide-to="1" className="active" />
+              </ol>
+              <div className="carousel-inner">
+                <div className="carousel-item active">
+                  <img src="DroughtCatastrophe.png" alt="Drought as national natural disaster" width="450" height="350" />
+                  <div className="container">
+                    <div className="carousel-caption">
+                      <div className={`${style['carousel-caption-bg']}`}>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="carousel-item carousel-item-next">
+                  <img src="DroughtComingBack.png" alt="Drought is coming back to Latvia" width="450" height="350" />
+                  <div className="container">
+                    <div className="carousel-caption">
+                      <div className={`${style['carousel-caption-bg']}`}>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a className="carousel-control-prev" href="#postCarousel" role="button" data-slide="prev">
+                <span className="carousel-control-prev-icon" aria-hidden="true" />
+                <span className="sr-only">Previous</span>
+              </a>
+              <a className="carousel-control-next" href="#postCarousel" role="button" data-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true" />
+                <span className="sr-only">Next</span>
+              </a>
+            </div>
           </div>
         </div>
-        <hr className="featurette-divider" />
       </div>
     </>
   );
