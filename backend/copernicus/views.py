@@ -3,8 +3,10 @@ from django.shortcuts import render
 
 from copernicus.utils import get_image, return_map_from_img
 
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
+@csrf_exempt
 def get_picture_data(request):
     payload = {
         "input": {
@@ -42,8 +44,8 @@ def get_picture_data(request):
         "evalscript": '//VERSION=3\nfunction setup() {\n  return {\n    input: ["B8A"],\n    output: { bands: 1, sampleType: "UINT8" }\n  };\n}\n\nfunction evaluatePixel(sample) {\n  return [255 * sample.B8A ];}',
     }
 
-    image = get_image(payload)
-    hashmap = return_map_from_img(image)
+    # image = get_image(payload)
+    # hashmap = return_map_from_img(image)
     # print(image)
 
-    return JsonResponse({"image": hashmap})
+    return JsonResponse({"dry": 50., "semidry": 45., "moist": 5.})
