@@ -3,11 +3,18 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { Requester } from 'utils/Requester';
 import { PicData } from 'utils/Responses';
 
-import { Map, Rectangle, TileLayer } from 'react-leaflet';
+import { Map, Rectangle, TileLayer, Popup, Marker } from 'react-leaflet';
 
 import { LatLng, LatLngBounds } from 'leaflet';
 import DataChartPicture from './DataChartPicture.js';
 
+async function setPicDataAwait(p1: Point, p2: Point, cb: (arg0: PicData) => void) {
+  const data = await Requester.getPicture(p1, p2);
+  cb(data);
+}
+
+const base1 = { x: 56.835, y: 24.005 };
+const base2 = { x: 56.84, y: 24.0 };
 export function Data(): ReactElement {
   const [image, setImage] = useState<{ img1: string; img2: string }>({
     img1: 'bad1.png',
@@ -20,23 +27,18 @@ export function Data(): ReactElement {
     picture: '',
   });
 
-  const [p1, setP1] = useState<Point>({ x: 56.835, y: 24.005 });
-  const [p2, setP2] = useState<Point>({ x: 56.84, y: 24.0 });
   const [bounds, setBounds] = useState<LatLngBounds>(
-    new LatLngBounds(new LatLng(p1.x, p1.y), new LatLng(p2.x, p2.y)),
+    new LatLngBounds(new LatLng(base1.x, base1.y), new LatLng(base2.x, base2.y)),
   );
 
+  const [marker1, setMarker1] = useState<LatLng>(new LatLng(base1.x, base1.y));
+  const [marker2, setMarker2] = useState<LatLng>(new LatLng(base2.x, base2.y));
+
   useEffect(() => {
-    async function setPicDataAwait() {
-      const data = await Requester.getPicture(p1, p2);
-      setPicData(data);
-    }
-    setPicDataAwait();
-  }, []);
+    setBounds(new LatLngBounds(new LatLng(marker1.lat, marker1.lng), new LatLng(marker2.lat, marker2.lng)));
+  }, [marker1.lat, marker1.lng, marker2.lat, marker2.lng]);
 
   const center = { lat: 56.837, lng: 24.002 };
-
-  // const bounds = new LatLngBounds(new LatLng(56.835, 24.005), new LatLng(56.84, 24.0));
 
   return (
     <>
@@ -53,61 +55,37 @@ export function Data(): ReactElement {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Rectangle bounds={bounds} color="black" />
+
+              <Marker
+                draggable
+                ondragend={(v1) => {
+                  setMarker1(new LatLng(v1.target._latlng.lat, v1.target._latlng.lng));
+                }}
+                position={marker1}
+              >
+                <Popup minWidth={90}>
+                  <span>
+                    DRAG MARKER
+                  </span>
+                </Popup>
+              </Marker>
+              <Marker
+                draggable
+                ondragend={(v2) => {
+                  setMarker2(new LatLng(v2.target._latlng.lat, v2.target._latlng.lng));
+                }}
+                position={marker2}
+              >
+                <Popup minWidth={90}>
+                  <span>
+                    DRAG MARKER
+                  </span>
+                </Popup>
+              </Marker>
             </Map>
           </div>
           <div className="col-4">
             <DataChartPicture picData={picData} />
-            <div className="card mt-3" style={{ width: '18rem' }}>
-              <label htmlFor="corn1-lan">1. Corner - latitude</label>
-              <input
-                id="corn1-lan"
-                type="number"
-                step={0.001}
-                min={-90}
-                max={90}
-                value={p1.x}
-                onClick={(e) => {
-                  console.log(e.currentTarget.value);
-
-                  setP1({
-                    x: p1.x,
-                    y: Number(e.currentTarget.value).valueOf(),
-                  });
-                }}
-              />
-              <label htmlFor="corn1-lon">1. Corner - longitude</label>
-              <input
-                id="corn1-lon"
-                type="number"
-                step={0.001}
-                min={-180}
-                max={180}
-                value={p1.x}
-                onClick={(e) => setP1({ x: Number(e.currentTarget.value).valueOf(), y: p1.y })}
-              />
-            </div>
-            <div className="card mt-3" style={{ width: '18rem' }}>
-              <label htmlFor="corn2-lan">2. Corner - latitude</label>
-              <input
-                id="corn2-lan"
-                type="number"
-                step={0.001}
-                min={-90}
-                max={90}
-                value={p2.y}
-                onClick={(e) => setP2({ x: p2.x, y: Number(e.currentTarget.value).valueOf() })}
-              />
-              <label htmlFor="corn2-lon">2. Corner - longitude</label>
-              <input
-                id="corn2-lon"
-                type="number"
-                step={0.001}
-                min={-180}
-                max={180}
-                value={p2.x}
-                onClick={(e) => setP2({ x: Number(e.currentTarget.value).valueOf(), y: p2.y })}
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -234,13 +212,4 @@ export function Data(): ReactElement {
       </div>
     </>
   );
-}
-
-{
-  /* <div classNameName="container">
-   <div classNameName={`${style['map-dimensions']}`}>
-     <GoogleMapReact>
-     <p>oke</p>
-   </div>
-</div> */
 }

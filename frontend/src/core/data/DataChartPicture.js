@@ -5,10 +5,10 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 am4core.useTheme(am4themes_animated);
 
+var chart = am4core.create('chartdiv', am4charts.PieChart);
 function DataChartPicture({ picData }) {
-  var chart = am4core.create('chartdiv', am4charts.PieChart);
   console.log(picData);
-
+  // chart.dispose();
   // Add data
   chart.data = [
     {
