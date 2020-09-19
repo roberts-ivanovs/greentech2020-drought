@@ -10,12 +10,12 @@ def get_picture_data(request):
         "input": {
             "bounds": {
                 "bbox": [
-                    25.75899124145508,
-                    56.53421649279575,
-                    26.08858108520508,
-                    56.578491824893476,
+                    2877643.9131091023,
+                    7666310.225629501,
+                    2887771.8193568876,
+                    7679189.8648955505,
                 ],
-                "properties": {"crs": "http://www.opengis.net/def/crs/EPSG/0/4326"},
+                "properties": {"crs": "http://www.opengis.net/def/crs/EPSG/0/3857"},
                 "geometry": None,
             },
             "data": [
@@ -29,17 +29,17 @@ def get_picture_data(request):
                         "previewMode": "EXTENDED_PREVIEW",
                         "maxCloudCoverage": 100,
                     },
-                    "processing": {"upsampling": "BICUBIC", "downsampling": "BICUBIC"},
+                    "processing": {"upsampling": "BICUBIC"},
                     "type": "S2L2A",
                 }
             ],
         },
         "output": {
-            "width": 800,
-            "height": 600,
-            "responses": [{"identifier": "default", "format": {"type": "image/jpeg"}}],
+            "width": 1012,
+            "height": 1287,
+            "responses": [{"identifier": "default", "format": {"type": "image/tiff"}}],
         },
-        "evalscript": '//VERSION=3\nconst moistureRamps = [\n        [-0.8, 0x800000],\n        [-0.24, 0xff0000],\n        [-0.032, 0xffff00],\n        [0.032, 0x00ffff],\n        [0.24, 0x0000ff],\n        [0.8, 0x000080]\n      ];\n\nconst viz = new ColorRampVisualizer(moistureRamps);\n\nfunction setup() {\n  return {\n    input: ["B8A", "B11","dataMask"],\n    output: { bands: 4 }\n  };\n}\n\nfunction evaluatePixel(samples) {\n  let val = index(samples.B8A, samples.B11); \n  return [...viz.process(val),samples.dataMask];\n}',
+        "evalscript": '//VERSION=3\nfunction setup() {\n  return {\n    input: ["B8A"],\n    output: { bands: 1, sampleType: "UINT8" }\n  };\n}\n\nfunction evaluatePixel(sample) {\n  return [255 * sample.B8A ];}',
     }
 
     image = get_image(payload)
