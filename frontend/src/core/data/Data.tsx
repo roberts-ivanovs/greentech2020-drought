@@ -3,11 +3,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { Requester } from 'utils/Requester';
 import { PicData } from 'utils/Responses';
 
-import {
-  Map,
-  Rectangle,
-  TileLayer,
-} from 'react-leaflet';
+import { Map, Rectangle, TileLayer } from 'react-leaflet';
 
 import { LatLng, LatLngBounds } from 'leaflet';
 import DataChartPicture from './DataChartPicture.js';
@@ -63,15 +59,54 @@ export function Data(): ReactElement {
             <DataChartPicture picData={picData} />
             <div className="card mt-3" style={{ width: '18rem' }}>
               <label htmlFor="corn1-lan">1. Corner - latitude</label>
-              <input id="corn1-lan" type="number" step={0.001} min={-90} max={90} value={p1.y} onClick={(e) => setP1({ x: p1.x, y: Number(e.currentTarget.value).valueOf() })} />
+              <input
+                id="corn1-lan"
+                type="number"
+                step={0.001}
+                min={-90}
+                max={90}
+                value={p1.x}
+                onClick={(e) => {
+                  console.log(e.currentTarget.value);
+
+                  setP1({
+                    x: p1.x,
+                    y: Number(e.currentTarget.value).valueOf(),
+                  });
+                }}
+              />
               <label htmlFor="corn1-lon">1. Corner - longitude</label>
-              <input id="corn1-lon" type="number" step={0.001} min={-180} max={180} value={p1.x} onClick={(e) => setP1({ x: Number(e.currentTarget.value).valueOf(), y: p1.y })} />
+              <input
+                id="corn1-lon"
+                type="number"
+                step={0.001}
+                min={-180}
+                max={180}
+                value={p1.x}
+                onClick={(e) => setP1({ x: Number(e.currentTarget.value).valueOf(), y: p1.y })}
+              />
             </div>
             <div className="card mt-3" style={{ width: '18rem' }}>
               <label htmlFor="corn2-lan">2. Corner - latitude</label>
-              <input id="corn2-lan" type="number" step={0.001} min={-90} max={90} value={p2.y} onClick={(e) => setP2({ x: p2.x, y: Number(e.currentTarget.value).valueOf() })} />
+              <input
+                id="corn2-lan"
+                type="number"
+                step={0.001}
+                min={-90}
+                max={90}
+                value={p2.y}
+                onClick={(e) => setP2({ x: p2.x, y: Number(e.currentTarget.value).valueOf() })}
+              />
               <label htmlFor="corn2-lon">2. Corner - longitude</label>
-              <input id="corn2-lon" type="number" step={0.001} min={-180} max={180} value={p2.x} onClick={(e) => setP2({ x: Number(e.currentTarget.value).valueOf(), y: p2.y })} />
+              <input
+                id="corn2-lon"
+                type="number"
+                step={0.001}
+                min={-180}
+                max={180}
+                value={p2.x}
+                onClick={(e) => setP2({ x: Number(e.currentTarget.value).valueOf(), y: p2.y })}
+              />
             </div>
           </div>
         </div>
