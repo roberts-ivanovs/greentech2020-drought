@@ -3,7 +3,9 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { Requester } from 'utils/Requester';
 import { PicData } from 'utils/Responses';
 
-import { Map, Rectangle, TileLayer, Popup, Marker } from 'react-leaflet';
+import {
+  Map, Rectangle, TileLayer, Popup, Marker,
+} from 'react-leaflet';
 
 import { LatLng, LatLngBounds } from 'leaflet';
 import DataChartPicture from './DataChartPicture.js';
@@ -46,7 +48,7 @@ export function Data(): ReactElement {
         <div className="row">
           <div className="col-8">
             <Map
-              style={{ height: '80vh', width: '100%' }}
+              style={{ height: '40rem', width: '100%' }}
               center={center}
               zoom={13}
             >
@@ -85,6 +87,17 @@ export function Data(): ReactElement {
             </Map>
           </div>
           <div className="col-4">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={
+              () => {
+                setPicDataAwait({ x: marker1.lat, y: marker1.lng }, { x: marker2.lat, y: marker2.lng }, setPicData);
+              }
+            }
+            >
+              ANALYZE SELECTION
+            </button>
             <DataChartPicture picData={picData} />
           </div>
         </div>
