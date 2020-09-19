@@ -1,8 +1,11 @@
 import Axios, { AxiosError } from 'axios';
+import { Point } from "core/types";
+import { PicData } from "./Responses";
 
 const apiClient = Axios.create({});
 
 const urls = {
+  pic: "/api/copernicus/pic"
 };
 
 function isAxiosError(err: AxiosError | unknown): err is AxiosError {
@@ -48,7 +51,7 @@ class Requester {
 
   constructor() {
     this.authHeader = { Authorization: '' };
-    this.registered401Cb = () => {};
+    this.registered401Cb = () => { };
   }
 
   setAuthHeader = (token: string): void => {
@@ -59,6 +62,10 @@ class Requester {
   registerAuthFail = (callback: () => void): void => {
     this.registered401Cb = callback;
   };
+
+  getPicture = (p1: Point, p2: Point, p3: Point, p4: Point): Promise<PicData> => post(urls.pic, {
+    p1, p2, p3, p4
+  });
 
 }
 
