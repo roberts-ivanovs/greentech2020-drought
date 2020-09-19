@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react';
 
+import style from './Home.module.scss';
+
 interface Props {
 
 }
@@ -16,29 +18,34 @@ export function Home({ }: Props): ReactElement {
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src="satalite.png" alt="Satalite" width="100%" height="100%" />
-            <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="75%" fill="#777" /></svg>
-            <div className="carousel-caption">
-              <h1>Drought prediction</h1>
-              <p>Using Copernicus satellite data</p>
-            </div>
-          </div>
-          <div className="carousel-item carousel-item-next">
-            {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg> */}
-            <img src="forest.png" alt="Satalite" width="100%" height="100%" />
             <div className="container">
               <div className="carousel-caption">
-                <h1>Save money, avoid risk</h1>
-                <p>No need to spend where it is not profitable</p>
+                <div className={`${style['carousel-caption-bg']}`}>
+                  <h1 className="">Drought prediction</h1>
+                  <p className="">Using Copernicus satellite data</p>
+                </div>
               </div>
             </div>
           </div>
-          <div className="carousel-item">
-            {/* <svg className="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect width="100%" height="100%" fill="#777" /></svg> */}
+          <div className="carousel-item carousel-item-next">
+            <img src="forest.png" alt="Satalite" width="100%" height="100%" />
+            <div className="container">
+              <div className="carousel-caption">
+                <div className={`${style['carousel-caption-bg']}`}>
+                  <h1>Save money, avoid risk</h1>
+                  <p>No need to spend where it is not profitable</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="carousel-item carousel-item-next">
             <img src="crops.png" alt="Satalite" width="100%" height="100%" />
             <div className="container">
               <div className="carousel-caption">
-                <h1>Make people happy</h1>
-                <p>Save the crops, feed the planet indirectly by using our product</p>
+                <div className={`${style['carousel-caption-bg']}`}>
+                  <h1>Make people happy</h1>
+                  <p>Save the crops, feed the planet indirectly by using our product</p>
+                </div>
               </div>
             </div>
           </div>
@@ -53,7 +60,7 @@ export function Home({ }: Props): ReactElement {
         </a>
       </div>
 
-      <div className="container marketing">
+      <div className="container marketing mt-5">
         <div className="row">
           <div className="col-lg-4">
             <svg className="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140"><title>Placeholder</title><rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
