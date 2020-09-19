@@ -102,6 +102,18 @@ export function Home({ }: Props): ReactElement {
 
         <div className="row featurette">
           <div className="col-md-7 order-md-2">
+            <h2 className="featurette-heading">Agrobroker</h2>
+            <p className="lead">Field inspection takes time and money resources. We are looking for other options to improve that. 20% of Latvias fields are insured and this percentage will only grow. </p>
+          </div>
+          <div className="col-md-5 order-md-1">
+            <img className="rounded mx-auto d-block" src="agrobroker.png" alt="Latraps logo" width="450" height="150" />
+          </div>
+        </div>
+        {/* 
+        <hr className="featurette-divider" />
+
+        <div className="row featurette">
+          <div className="col-md-7 order-md-2">
             <h2 className="featurette-heading">Possible consequences</h2>
             <p className="lead">Lauris Ļubka - farmer from Latgale - went swimming in his crop land after long lasting rainfalls which caused irrigation.</p>
           </div>
@@ -110,7 +122,7 @@ export function Home({ }: Props): ReactElement {
               <source src="fermeris.mp4" type="video/mp4" />
             </video>
           </div>
-        </div>
+        </div> */}
 
         <hr className="featurette-divider" />
 
