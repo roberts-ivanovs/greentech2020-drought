@@ -30,7 +30,7 @@ function DataChartPicture({ picData }) {
   pieSeries.dataFields.value = 'data';
   pieSeries.dataFields.category = 'type';
 
-  return <div id="chartdiv" style={{ width: '100%', height: '100%' }} />;
+  return <div id="chartdiv" style={{ width: '100%', height: '50%' }} />;
 }
 
 export default DataChartPicture;

@@ -4,18 +4,13 @@ import { Requester } from 'utils/Requester';
 import { PicData } from 'utils/Responses';
 
 import {
-  Circle,
-  CircleMarker,
   Map,
-  Polygon,
-  Polyline,
-  Popup,
   Rectangle,
   TileLayer,
 } from 'react-leaflet';
 
+import { LatLng, LatLngBounds } from 'leaflet';
 import DataChartPicture from './DataChartPicture.js';
-import { LatLng, LatLngBounds } from "leaflet";
 
 export function Data(): ReactElement {
   const [image, setImage] = useState<{ img1: string; img2: string }>({
@@ -29,47 +24,55 @@ export function Data(): ReactElement {
     picture: '',
   });
 
-  const [p1, setP1] = useState<Point>({ x: 0, y: 0 });
-  const [p2, setP2] = useState<Point>({ x: 0, y: 0 });
-  const [p3, setP3] = useState<Point>({ x: 0, y: 0 });
-  const [p4, setP4] = useState<Point>({ x: 0, y: 0 });
+  const [p1, setP1] = useState<Point>({ x: 56.835, y: 24.005 });
+  const [p2, setP2] = useState<Point>({ x: 56.84, y: 24.0 });
+  const [bounds, setBounds] = useState<LatLngBounds>(
+    new LatLngBounds(new LatLng(p1.x, p1.y), new LatLng(p2.x, p2.y)),
+  );
 
   useEffect(() => {
     async function setPicDataAwait() {
-      const data = await Requester.getPicture(p1, p2, p3, p4);
+      const data = await Requester.getPicture(p1, p2);
       setPicData(data);
     }
     setPicDataAwait();
   }, []);
 
-  // console.log(picData);
+  const center = { lat: 56.837, lng: 24.002 };
 
-  const center = { lat: 0, lng: 0 };
-
-  const polygon = [
-    { lat: 51.515, lng: -0.09 },
-    { lat: 51.52, lng: -0.1 },
-    { lat: 51.52, lng: -0.12 },
-  ];
-
-  const bounds = new LatLngBounds(new LatLng(0.0, 0.0), new LatLng(0.0, 0.0));
+  // const bounds = new LatLngBounds(new LatLng(56.835, 24.005), new LatLng(56.84, 24.0));
 
   return (
     <>
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <Map center={center} zoom={1}>
-              {/* <TileLayer
+            <Map
+              style={{ height: '80vh', width: '100%' }}
+              center={center}
+              zoom={13}
+            >
+              <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              /> */}
-              {/* <Polygon color="purple" positions={polygon} /> */}
+              />
               <Rectangle bounds={bounds} color="black" />
             </Map>
           </div>
           <div className="col-4">
             <DataChartPicture picData={picData} />
+            <div className="card mt-3" style={{ width: '18rem' }}>
+              <label htmlFor="corn1-lan">1. Corner - latitude</label>
+              <input id="corn1-lan" type="number" step={0.001} min={-90} max={90} value={p1.y} onClick={(e) => setP1({ x: p1.x, y: Number(e.currentTarget.value).valueOf() })} />
+              <label htmlFor="corn1-lon">1. Corner - longitude</label>
+              <input id="corn1-lon" type="number" step={0.001} min={-180} max={180} value={p1.x} onClick={(e) => setP1({ x: Number(e.currentTarget.value).valueOf(), y: p1.y })} />
+            </div>
+            <div className="card mt-3" style={{ width: '18rem' }}>
+              <label htmlFor="corn2-lan">2. Corner - latitude</label>
+              <input id="corn2-lan" type="number" step={0.001} min={-90} max={90} value={p2.y} onClick={(e) => setP2({ x: p2.x, y: Number(e.currentTarget.value).valueOf() })} />
+              <label htmlFor="corn2-lon">2. Corner - longitude</label>
+              <input id="corn2-lon" type="number" step={0.001} min={-180} max={180} value={p2.x} onClick={(e) => setP2({ x: Number(e.currentTarget.value).valueOf(), y: p2.y })} />
+            </div>
           </div>
         </div>
       </div>

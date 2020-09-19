@@ -63,8 +63,8 @@ class Requester {
     this.registered401Cb = callback;
   };
 
-  getPicture = (p1: Point, p2: Point, p3: Point, p4: Point): Promise<PicData> => post(urls.pic, {
-    p1, p2, p3, p4
+  getPicture = (p1: Point, p2: Point): Promise<PicData> => post(urls.pic, {
+    p1, p2,
   });
 
 }
