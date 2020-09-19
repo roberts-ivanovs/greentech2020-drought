@@ -4,11 +4,11 @@ import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 
 am4core.useTheme(am4themes_animated);
+am4core.options.autoDispose = true;
 
-var chart = am4core.create('chartdiv', am4charts.PieChart);
 function DataChartPicture({ picData }) {
-  console.log(picData);
-  // chart.dispose();
+  var chart = am4core.create('chartdiv', am4charts.PieChart);
+
   // Add data
   chart.data = [
     {
