@@ -1,13 +1,78 @@
-import React, { ReactElement, useState } from 'react';
+import { Point } from 'core/types.js';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { Requester } from 'utils/Requester';
+import { PicData } from 'utils/Responses';
+
+import {
+  Circle,
+  CircleMarker,
+  Map,
+  Polygon,
+  Polyline,
+  Popup,
+  Rectangle,
+  TileLayer,
+} from 'react-leaflet';
+
+import DataChartPicture from './DataChartPicture.js';
+import { LatLng, LatLngBounds } from "leaflet";
 
 export function Data(): ReactElement {
   const [image, setImage] = useState<{ img1: string; img2: string }>({
     img1: 'bad1.png',
     img2: 'bad2.png',
   });
+  const [picData, setPicData] = useState<PicData>({
+    dry: 0,
+    semidry: 0,
+    moist: 0,
+    picture: '',
+  });
+
+  const [p1, setP1] = useState<Point>({ x: 0, y: 0 });
+  const [p2, setP2] = useState<Point>({ x: 0, y: 0 });
+  const [p3, setP3] = useState<Point>({ x: 0, y: 0 });
+  const [p4, setP4] = useState<Point>({ x: 0, y: 0 });
+
+  useEffect(() => {
+    async function setPicDataAwait() {
+      const data = await Requester.getPicture(p1, p2, p3, p4);
+      setPicData(data);
+    }
+    setPicDataAwait();
+  }, []);
+
+  // console.log(picData);
+
+  const center = { lat: 0, lng: 0 };
+
+  const polygon = [
+    { lat: 51.515, lng: -0.09 },
+    { lat: 51.52, lng: -0.1 },
+    { lat: 51.52, lng: -0.12 },
+  ];
+
+  const bounds = new LatLngBounds(new LatLng(0.0, 0.0), new LatLng(0.0, 0.0));
 
   return (
     <>
+      <div className="container">
+        <div className="row">
+          <div className="col-8">
+            <Map center={center} zoom={1}>
+              {/* <TileLayer
+                attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              /> */}
+              {/* <Polygon color="purple" positions={polygon} /> */}
+              <Rectangle bounds={bounds} color="black" />
+            </Map>
+          </div>
+          <div className="col-4">
+            <DataChartPicture picData={picData} />
+          </div>
+        </div>
+      </div>
       <div className="container mt-5">
         <div
           id="carouselExampleControls"
