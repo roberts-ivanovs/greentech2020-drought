@@ -2,21 +2,31 @@ import { Point } from 'core/types.js';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Requester } from 'utils/Requester';
 import { PicData } from 'utils/Responses';
+import L, { LatLng, LatLngBounds } from 'leaflet';
 
 import {
   Map, Rectangle, TileLayer, Popup, Marker,
 } from 'react-leaflet';
 
-import { LatLng, LatLngBounds } from 'leaflet';
-import DataChartPicture from './DataChartPicture.js';
+import { DataChartPicture } from './DataChartPicture.js';
 
-async function setPicDataAwait(p1: Point, p2: Point, cb: (arg0: PicData) => void) {
+export const pointerIcon = new L.Icon({
+  iconUrl: 'marker.png',
+  iconAnchor: [25, 45],
+  iconSize: [45, 45],
+});
+
+async function setPicDataAwait(
+  p1: Point,
+  p2: Point,
+  cb: (arg0: PicData) => void,
+) {
   const data = await Requester.getPicture(p1, p2);
   cb(data);
 }
 // 57.287770, 21.920476/
 // 57.251261, 22.028215
-const base1 = { lat: 57.287770, lng: 21.920476 };
+const base1 = { lat: 57.28777, lng: 21.920476 };
 const base2 = { lat: 57.251261, lng: 22.028215 };
 export function Data(): ReactElement {
   const [image, setImage] = useState<{ img1: string; img2: string }>({
@@ -31,17 +41,29 @@ export function Data(): ReactElement {
   });
 
   const [bounds, setBounds] = useState<LatLngBounds>(
-    new LatLngBounds(new LatLng(base1.lat, base1.lng), new LatLng(base2.lat, base2.lng)),
+    new LatLngBounds(
+      new LatLng(base1.lat, base1.lng),
+      new LatLng(base2.lat, base2.lng),
+    ),
   );
 
-  const [marker1, setMarker1] = useState<LatLng>(new LatLng(base1.lat, base1.lng));
-  const [marker2, setMarker2] = useState<LatLng>(new LatLng(base2.lat, base2.lng));
+  const [marker1, setMarker1] = useState<LatLng>(
+    new LatLng(base1.lat, base1.lng),
+  );
+  const [marker2, setMarker2] = useState<LatLng>(
+    new LatLng(base2.lat, base2.lng),
+  );
 
   useEffect(() => {
-    setBounds(new LatLngBounds(new LatLng(marker1.lat, marker1.lng), new LatLng(marker2.lat, marker2.lng)));
+    setBounds(
+      new LatLngBounds(
+        new LatLng(marker1.lat, marker1.lng),
+        new LatLng(marker2.lat, marker2.lng),
+      ),
+    );
   }, [marker1.lat, marker1.lng, marker2.lat, marker2.lng]);
 
-  const center = base1;//{ lat: 56.837, lng: 24.002 };
+  const center = base1; // { lat: 56.837, lng: 24.002 };
 
   return (
     <>
@@ -51,7 +73,7 @@ export function Data(): ReactElement {
             <Map
               style={{ height: '40rem', width: '100%' }}
               center={center}
-              zoom={13}
+              zoom={12}
             >
               <TileLayer
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -61,28 +83,30 @@ export function Data(): ReactElement {
 
               <Marker
                 draggable
+                icon={pointerIcon}
                 ondragend={(v1) => {
-                  setMarker1(new LatLng(v1.target._latlng.lat, v1.target._latlng.lng));
+                  setMarker1(
+                    new LatLng(v1.target._latlng.lat, v1.target._latlng.lng),
+                  );
                 }}
                 position={marker1}
               >
                 <Popup minWidth={90}>
-                  <span>
-                    DRAG MARKER
-                  </span>
+                  <span>DRAG MARKER</span>
                 </Popup>
               </Marker>
               <Marker
                 draggable
+                icon={pointerIcon}
                 ondragend={(v2) => {
-                  setMarker2(new LatLng(v2.target._latlng.lat, v2.target._latlng.lng));
+                  setMarker2(
+                    new LatLng(v2.target._latlng.lat, v2.target._latlng.lng),
+                  );
                 }}
                 position={marker2}
               >
                 <Popup minWidth={90}>
-                  <span>
-                    DRAG MARKER
-                  </span>
+                  <span>DRAG MARKER</span>
                 </Popup>
               </Marker>
             </Map>
@@ -91,11 +115,13 @@ export function Data(): ReactElement {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={
-              () => {
-                setPicDataAwait({ x: marker1.lat, y: marker1.lng }, { x: marker2.lat, y: marker2.lng }, setPicData);
-              }
-            }
+              onClick={() => {
+                setPicDataAwait(
+                  { x: marker1.lat, y: marker1.lng },
+                  { x: marker2.lat, y: marker2.lng },
+                  setPicData,
+                );
+              }}
             >
               ANALYZE SELECTION
             </button>
