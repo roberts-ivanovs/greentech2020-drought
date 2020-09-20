@@ -67,11 +67,11 @@ export function Data(): ReactElement {
 
   return (
     <>
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-8">
+          <div className="col">
             <Map
-              style={{ height: '40rem', width: '100%' }}
+              style={{ height: '20rem', width: '100%' }}
               center={center}
               zoom={12}
             >
@@ -111,7 +111,10 @@ export function Data(): ReactElement {
               </Marker>
             </Map>
           </div>
-          <div className="col-4">
+        </div>
+        <div className="row">
+          <div className="col">
+
             <button
               type="button"
               className="btn btn-primary"
@@ -124,7 +127,7 @@ export function Data(): ReactElement {
               }}
             >
               ANALYZE SELECTION
-            </button>
+          </button>
             <DataChartPicture picData={picData} />
           </div>
         </div>

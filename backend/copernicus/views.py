@@ -20,10 +20,6 @@ def get_picture_data(request):
 
     coors = [
         ymin, xmin, ymax, xmax
-        # p1["y"] * 100000,
-        # p1["x"] * 100000,
-        # p2["y"] * 100000,
-        # p2["x"] * 100000,
     ]
     print(coors)
     payloadB8A = {
@@ -88,8 +84,9 @@ def get_picture_data(request):
         "evalscript": '//VERSION=3\nfunction setup() {\n  return {\n    input: ["B11"],\n    output: { bands: 1, sampleType: "UINT8" }\n  };\n}\n\nfunction evaluatePixel(sample) {\n  return [255 * sample.B11 ];}',
     }
 
-    parsed_image_B8A = get_image(payloadB8A, "payloadB8A.tiff")
-    parsed_image_B11 = get_image(payloadB11, "payloadB11.tiff")
+    parsed_image_B8A, picB8A = get_image(payloadB8A, "payloadB8A.tiff")
+    parsed_image_B11, picB811 = get_image(payloadB11, "payloadB11.tiff")
 
     map_data = extract_data(parsed_image_B8A, parsed_image_B11)
+    # map_data["pic"] = picB8A
     return JsonResponse(map_data)

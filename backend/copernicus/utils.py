@@ -89,7 +89,7 @@ def get_image(payload, filename):
         target.write(response.content)
 
     pic = imread(filename)
-    return pic
+    return pic, response.content
 
 
 def extract_data(imageB8A, imageB11):
