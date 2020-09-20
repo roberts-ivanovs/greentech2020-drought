@@ -67,11 +67,11 @@ export function Data(): ReactElement {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container mt-1">
         <div className="row">
           <div className="col">
             <Map
-              style={{ height: '20rem', width: '100%' }}
+              style={{ height: '60vh', width: '100%' }}
               center={center}
               zoom={12}
             >
@@ -117,7 +117,7 @@ export function Data(): ReactElement {
 
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary mt-4"
               onClick={() => {
                 setPicDataAwait(
                   { x: marker1.lat, y: marker1.lng },
