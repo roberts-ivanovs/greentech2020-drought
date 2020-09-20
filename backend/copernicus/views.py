@@ -1,3 +1,4 @@
+import json
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -8,15 +9,27 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 @csrf_exempt
 def get_picture_data(request):
+    json_data = json.loads(request.body)
+    p1 = json_data.get("p1")
+    p2 = json_data.get("p2")
+
+    xmin = min([p1["x"], p2["x"]]) * 100000
+    ymin = min([p1["y"], p2["y"]]) * 100000
+    xmax = max([p1["x"], p2["x"]]) * 100000
+    ymax = max([p1["y"], p2["y"]]) * 100000
+
+    coors = [
+        ymin, xmin, ymax, xmax
+        # p1["y"] * 100000,
+        # p1["x"] * 100000,
+        # p2["y"] * 100000,
+        # p2["x"] * 100000,
+    ]
+    print(coors)
     payloadB8A = {
         "input": {
             "bounds": {
-                "bbox": [
-                    1244700.56859581,
-                    5100795.771526381,
-                    1538218.757210887,
-                    5191450.0870726025,
-                ],
+                "bbox": coors,
                 "properties": {"crs": "http://www.opengis.net/def/crs/EPSG/0/3857"},
                 "geometry": None,
             },
@@ -24,12 +37,12 @@ def get_picture_data(request):
                 {
                     "dataFilter": {
                         "timeRange": {
-                            "from": "2020-09-17T00:00:00.000Z",
-                            "to": "2020-09-17T23:59:59.999Z",
+                            "from": "2000-09-19T00:00:00.000Z",
+                            "to": "2020-09-19T23:59:59.999Z",
                         },
                         "mosaickingOrder": "mostRecent",
                         "previewMode": "EXTENDED_PREVIEW",
-                        "maxCloudCoverage": 100,
+                        "maxCloudCoverage": 10,
                     },
                     "processing": {"upsampling": "BICUBIC"},
                     "type": "S2L2A",
@@ -47,12 +60,7 @@ def get_picture_data(request):
     payloadB11 = {
         "input": {
             "bounds": {
-                "bbox": [
-                    1244700.56859581,
-                    5100795.771526381,
-                    1538218.757210887,
-                    5191450.0870726025,
-                ],
+                "bbox": coors,
                 "properties": {"crs": "http://www.opengis.net/def/crs/EPSG/0/3857"},
                 "geometry": None,
             },
@@ -60,12 +68,12 @@ def get_picture_data(request):
                 {
                     "dataFilter": {
                         "timeRange": {
-                            "from": "2020-09-17T00:00:00.000Z",
-                            "to": "2020-09-17T23:59:59.999Z",
+                            "from": "2000-09-19T00:00:00.000Z",
+                            "to": "2020-09-19T23:59:59.999Z",
                         },
                         "mosaickingOrder": "mostRecent",
                         "previewMode": "EXTENDED_PREVIEW",
-                        "maxCloudCoverage": 100,
+                        "maxCloudCoverage": 10,
                     },
                     "processing": {"upsampling": "BICUBIC"},
                     "type": "S2L2A",

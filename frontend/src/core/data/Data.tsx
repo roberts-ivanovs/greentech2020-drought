@@ -14,9 +14,10 @@ async function setPicDataAwait(p1: Point, p2: Point, cb: (arg0: PicData) => void
   const data = await Requester.getPicture(p1, p2);
   cb(data);
 }
-
-const base1 = { x: 56.835, y: 24.005 };
-const base2 = { x: 56.84, y: 24.0 };
+// 57.287770, 21.920476/
+// 57.251261, 22.028215
+const base1 = { lat: 57.287770, lng: 21.920476 };
+const base2 = { lat: 57.251261, lng: 22.028215 };
 export function Data(): ReactElement {
   const [image, setImage] = useState<{ img1: string; img2: string }>({
     img1: 'bad1.png',
@@ -30,17 +31,17 @@ export function Data(): ReactElement {
   });
 
   const [bounds, setBounds] = useState<LatLngBounds>(
-    new LatLngBounds(new LatLng(base1.x, base1.y), new LatLng(base2.x, base2.y)),
+    new LatLngBounds(new LatLng(base1.lat, base1.lng), new LatLng(base2.lat, base2.lng)),
   );
 
-  const [marker1, setMarker1] = useState<LatLng>(new LatLng(base1.x, base1.y));
-  const [marker2, setMarker2] = useState<LatLng>(new LatLng(base2.x, base2.y));
+  const [marker1, setMarker1] = useState<LatLng>(new LatLng(base1.lat, base1.lng));
+  const [marker2, setMarker2] = useState<LatLng>(new LatLng(base2.lat, base2.lng));
 
   useEffect(() => {
     setBounds(new LatLngBounds(new LatLng(marker1.lat, marker1.lng), new LatLng(marker2.lat, marker2.lng)));
   }, [marker1.lat, marker1.lng, marker2.lat, marker2.lng]);
 
-  const center = { lat: 56.837, lng: 24.002 };
+  const center = base1;//{ lat: 56.837, lng: 24.002 };
 
   return (
     <>
